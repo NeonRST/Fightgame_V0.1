@@ -2,8 +2,8 @@ import pygame
 from Playable import Player
 from pygame import mixer
 
-
-mixer.init() #mixer is เครื่องปั่น
+#Ricardo is noobie boobie Uwie Joobie Dickie หมาๆ
+mixer.init()
 pygame.init()
 
 # framerate
