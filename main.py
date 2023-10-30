@@ -2,7 +2,7 @@ import pygame
 from Playable import Player
 from pygame import mixer
 
-#Ricardo is noobie boobie Uwie Joobie Dickie หมาๆ
+# ichigamer
 mixer.init()
 pygame.init()
 
