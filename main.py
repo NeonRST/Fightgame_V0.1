@@ -2,7 +2,7 @@ import pygame
 from Playable import Player
 from pygame import mixer
 
-# ichigamer
+# ricaonRST
 mixer.init()
 pygame.init()
 
