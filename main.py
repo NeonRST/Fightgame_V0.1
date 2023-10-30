@@ -55,8 +55,6 @@ Player2_attack.set_volume(0.9)
 
 # load background image
 background_image = pygame.image.load("graphics/images/background/merlion.jpg").convert_alpha()
-# load victory image
-victory_img = pygame.image.load("graphics/images/icons/victory.png").convert_alpha()
 # load sprite sheets
 Player1_spritesheet = pygame.image.load("graphics/Fighter/Fighter_Spritelist.png").convert_alpha()
 Player2_spritesheet = pygame.image.load("graphics/Shinobi/Shinobi_Spritelist.png").convert_alpha()
