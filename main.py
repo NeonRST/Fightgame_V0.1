@@ -2,7 +2,7 @@ import pygame
 from Playable import Player
 from pygame import mixer
 
-# ricaonRST
+# Pk is coming
 mixer.init()
 pygame.init()
 
