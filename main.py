@@ -31,7 +31,12 @@ last_count_update = pygame.time.get_ticks()
 score = [0, 0]
 round_over = False
 ROUND_OVER_COOLDOWN = 3000
-
+# character select:
+Fighter = "graphics/Fighter/Fighter_Spritelist.png"
+Shinobi = "graphics/Shinobi/Shinobi_Spritelist.png"
+# p1 p2
+p1_Char = "graphics/Fighter/Fighter_Spritelist.png"
+p2_Char = "graphics/Shinobi/Shinobi_Spritelist.png"
 # define fighter variables
 Player1_size = 128
 Player1_scale = 2
@@ -54,15 +59,31 @@ Player2_attack.set_volume(0.9)
 
 # load background image
 background_image = pygame.image.load("graphics/images/background/merlion.jpg").convert_alpha()
-# menu image
+
+
+# menu
 menu_image = pygame.image.load("graphics/images/menu/menu.jpg").convert_alpha()
-menu_font = pygame.font.Font("graphics/fonts/Bulletproof.ttf", 50)
-menu_surface = menu_font.render("start", True, "Red")
-menu_surface_rect = menu_surface.get_rect(midbottom=(960, 300))
+menu_font = pygame.font.Font("graphics/fonts/Bulletproof.ttf", 30)
+menu_surface = menu_font.render("start", True, "Black")
+menu_surface_rect = menu_surface.get_rect(midbottom=(900, 300))
 menu = True
+menu_choose1 = menu_font.render("choose for player1", True, "Black")
+menu_choose2 = menu_font.render("choose for player2", True, "Black")
+menu_p1_fighter = menu_font.render("Fighter", True, "Black")
+menu_p1_shinobi = menu_font.render("Shinobi", True, "Black")
+menu_p2_fighter = menu_font.render("Fighter", True, "Black")
+menu_p2_shinobi = menu_font.render("Shinobi", True, "Black")
+menu_p1_fighter_rect = menu_surface.get_rect(midbottom=(400, 500))
+menu_p1_shinobi_rect = menu_surface.get_rect(midbottom=(400, 550))
+menu_p2_fighter_rect = menu_surface.get_rect(midbottom=(1200, 500))
+menu_p2_shinobi_rect = menu_surface.get_rect(midbottom=(1200, 550))
+
+
 # load sprite sheets
-Player1_spritesheet = pygame.image.load("graphics/Fighter/Fighter_Spritelist.png").convert_alpha()
-Player2_spritesheet = pygame.image.load("graphics/Shinobi/Shinobi_Spritelist.png").convert_alpha()
+Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
+Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
+
+
 # define number of steps in each animation
 Player1_step = [6, 8, 8, 10, 4, 3, 4, 2, 3, 3]
 Player2_step = [6, 8, 8, 12, 5, 3, 4, 4, 2, 4]
@@ -75,12 +96,19 @@ Victory_surface = Victory_font.render("Fatality", True, "Red")
 Victory_surface_rect = Victory_surface.get_rect(midbottom=(960, 550))
 Exit_surface = Exit_font.render("Exit", True, "Black")
 Exit_surface_rect = Exit_surface.get_rect(midbottom=(960, 80))
-# function for drawing background
+
 
 
 def draw_menu():
     scaled_menu = pygame.transform.scale(menu_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.blit(scaled_menu, (0, 0))
+    screen.blit(menu_choose1, (300, 400))
+    screen.blit(menu_choose2, (1100, 400))
+    screen.blit(menu_p1_fighter, menu_p1_fighter_rect)
+    screen.blit(menu_p1_shinobi, menu_p1_shinobi_rect)
+    screen.blit(menu_p2_fighter, menu_p2_fighter_rect)
+    screen.blit(menu_p2_shinobi, menu_p2_shinobi_rect)
+
 
 def draw_background():
     scaled_bg = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -110,6 +138,10 @@ Player2_spawn = Player(2, 1800, 1120, True, Player2_data, Player2_spritesheet,
 # game loop
 run = True
 while run:
+    Player1_spawn = Player(1, 200, 1120, False, Player1_data, Player1_spritesheet,
+                           Player1_step, Player1_attack)
+    Player2_spawn = Player(2, 1800, 1120, True, Player2_data, Player2_spritesheet,
+                           Player2_step, Player2_attack)
     clock.tick(FPS)
     # event
     for event in pygame.event.get():
@@ -118,9 +150,22 @@ while run:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if Exit_surface_rect.collidepoint(pygame.mouse.get_pos()):
                 run = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
             if menu_surface_rect.collidepoint(pygame.mouse.get_pos()):
                 menu = False
+            if menu_p1_fighter_rect.collidepoint(pygame.mouse.get_pos()):
+                p1_Char = Fighter
+                Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
+            if menu_p1_shinobi_rect.collidepoint(pygame.mouse.get_pos()):
+                p1_Char = Shinobi
+                Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
+            if menu_p2_fighter_rect.collidepoint(pygame.mouse.get_pos()):
+                p2_Char = Fighter
+                Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
+            if menu_p2_shinobi_rect.collidepoint(pygame.mouse.get_pos()):
+                p2_Char = Shinobi
+                Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
+
+
     # draw background
     if menu:
         draw_menu()
