@@ -67,7 +67,7 @@ class Player():
                 if (key[pygame.K_SPACE] or key[pygame.K_w]) and not self.jump:
                     self.vel_y = -30
                     self.jump = True
-                if key[pygame.K_s] and self.running == False:
+                if key[pygame.K_s] and not self.running:
                     self.blocking = True
                 # attack
                 if key[pygame.K_j] or key[pygame.K_k] or key[pygame.K_l]:
@@ -89,11 +89,11 @@ class Player():
                 if key[pygame.K_LEFT]:
                     dx = -speed
                     self.running = True
-                if key[pygame.K_RIGHT]:
+                elif key[pygame.K_RIGHT]:
                     dx = speed
                     self.running = True
                 # jump
-                if key[pygame.K_UP] and self.jump == False:
+                if key[pygame.K_UP] and not self.jump:
                     self.vel_y = -30
                     self.jump = True
                 if key[pygame.K_DOWN] and not self.running:
