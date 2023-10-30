@@ -52,7 +52,7 @@ class Player():
         # get key press
         key = pygame.key.get_pressed()
         # can only perform other actions if not currently attacking
-        if self.attacking == False and self.alive == True and not round_over:
+        if not self.attacking and self.alive and not round_over:
             # check player 1 controls
             if self.player == 1:
                 # movement
@@ -176,7 +176,7 @@ class Player():
         # check if the animation has finished
         if self.frame_index >= len(self.animation_list[self.action]):
             # if the player is dead then end the animation
-            if self.alive == False:
+            if not self.alive:
                 self.frame_index = len(self.animation_list[self.action]) - 1
             else:
                 self.frame_index = 0

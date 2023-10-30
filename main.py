@@ -37,11 +37,13 @@ Fighter = "graphics/Fighter/Fighter_Spritelist.png"
 Shinobi = "graphics/Shinobi/Shinobi_Spritelist.png"
 Samurai = "graphics/Samurai/Samurai_Spritelist.png"
 Gotoku = "graphics/Gotoku/Gotoku_spritelist.png"
+Onre = "graphics/Onre/Onre_spritelist.png"
 # define number of steps in each animation
 Fighter_step = [6, 8, 8, 10, 4, 3, 4, 2, 3, 3]
-Shinobi_step = [6, 8, 8, 12, 5, 3, 4, 4, 2, 2]
+Shinobi_step = [6, 8, 8, 12, 5, 3, 4, 4, 2, 4]
 Samurai_step = [6, 8, 8, 12, 6, 4, 3, 2, 2, 3]
 Gotoku_step = [5, 6, 7, 8, 4, 4, 4, 3, 4, 6]
+Onre_step = [6, 7, 7, 6, 4, 4, 5, 7, 3, 7]
 # p1 p2 defaults
 p1_Char = "graphics/Fighter/Fighter_Spritelist.png"
 p2_Char = "graphics/Shinobi/Shinobi_Spritelist.png"
@@ -67,39 +69,31 @@ Player1_attack.set_volume(0.5)
 Player2_attack = pygame.mixer.Sound("graphics/audio/woosh.mp3")
 Player2_attack.set_volume(0.9)
 
-# load background image
-background_image = pygame.image.load("graphics/images/background/shrek.jpg").convert_alpha()
-
-menu_p1_fighter = Choose("graphics/fonts/Bulletproof.ttf", "Fighter", 400, 500)
-menu_p1_shinobi = Choose("graphics/fonts/Bulletproof.ttf", "Shinobi", 400, 550)
-menu_p1_gotoku = Choose("graphics/fonts/Bulletproof.ttf", "Gotoku", 400, 650)
-menu_p2_gotoku = Choose("graphics/fonts/Bulletproof.ttf", "Gotoku", 1200, 650)
 # menu
 menu_image = pygame.image.load("graphics/images/menu/menu.jpg").convert_alpha()
-menu_font = pygame.font.Font("graphics/fonts/Bulletproof.ttf", 30)
-menu_surface = menu_font.render("start", True, "Black")
-menu_surface_rect = menu_surface.get_rect(midbottom=(900, 300))
-menu_choose1 = menu_font.render("choose for player1", True, "Black")
-menu_choose2 = menu_font.render("choose for player2", True, "Black")
-# menu_p1_fighter = menu_font.render("Fighter", True, "Black")
-# menu_p1_shinobi = menu_font.render("Shinobi", True, "Black")
-menu_p1_samurai = menu_font.render("Samurai", True, "Black")
-menu_p2_fighter = menu_font.render("Fighter", True, "Black")
-menu_p2_shinobi = menu_font.render("Shinobi", True, "Black")
-menu_p2_samurai = menu_font.render("Samurai", True, "Black")
-# menu_p1_fighter_rect = menu_surface.get_rect(midbottom=(400, 500))
-menu_p1_shinobi_rect = menu_surface.get_rect(midbottom=(400, 550))
-menu_p1_samurai_rect = menu_surface.get_rect(midbottom=(400, 600))
-menu_p2_fighter_rect = menu_surface.get_rect(midbottom=(1200, 500))
-menu_p2_shinobi_rect = menu_surface.get_rect(midbottom=(1200, 550))
-menu_p2_samurai_rect = menu_surface.get_rect(midbottom=(1200, 600))
+start_font = pygame.font.Font("graphics/fonts/Bulletproof.ttf", 100)
+start_surface = start_font.render("start", True, "Black")
+start_surface_rect = start_surface.get_rect(midbottom=(870, 300))
+menu_choose1 = Choose("graphics/fonts/Bulletproof.ttf", "Player1", 600, 450, 50, "red")
+menu_choose2 = Choose("graphics/fonts/Bulletproof.ttf", "Player2", 1100, 450, 50, "red")
 
+# load background image
+background_image = pygame.image.load("graphics/images/background/shrek.jpg").convert_alpha()
+# character choose
+menu_p1_fighter = Choose("graphics/fonts/Bulletproof.ttf", "Fighter", 600, 500)
+menu_p1_shinobi = Choose("graphics/fonts/Bulletproof.ttf", "Shinobi", 600, 550)
+menu_p1_samurai = Choose("graphics/fonts/Bulletproof.ttf", "Samurai", 600, 600)
+menu_p1_gotoku = Choose("graphics/fonts/Bulletproof.ttf", "Gotoku", 600, 650)
+menu_p1_Onre = Choose("graphics/fonts/Bulletproof.ttf", "Onre", 600, 700)
+menu_p2_fighter = Choose("graphics/fonts/Bulletproof.ttf", "Fighter", 1100, 500)
+menu_p2_shinobi = Choose("graphics/fonts/Bulletproof.ttf", "Shinobi", 1100, 550)
+menu_p2_samurai = Choose("graphics/fonts/Bulletproof.ttf", "Samurai", 1100, 600)
+menu_p2_gotoku = Choose("graphics/fonts/Bulletproof.ttf", "Gotoku", 1100, 650)
+menu_p2_Onre = Choose("graphics/fonts/Bulletproof.ttf", "Onre", 1100, 700)
 
 # load sprite sheets
 Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
 Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
-
-
 
 # define font
 Exit_font = pygame.font.Font("graphics/fonts/Bulletproof.ttf", 50)
@@ -115,16 +109,20 @@ Exit_surface_rect = Exit_surface.get_rect(midbottom=(960, 80))
 def draw_menu():
     scaled_menu = pygame.transform.scale(menu_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.blit(scaled_menu, (0, 0))
-    screen.blit(menu_choose1, (300, 400))
-    screen.blit(menu_choose2, (1100, 400))
+    Choose.draw_menu(menu_choose1, screen)
+    # p1
+    Choose.draw_menu(menu_choose2, screen)
     Choose.draw_menu(menu_p1_fighter, screen)
     Choose.draw_menu(menu_p1_shinobi, screen)
+    Choose.draw_menu(menu_p1_samurai, screen)
     Choose.draw_menu(menu_p1_gotoku, screen)
+    Choose.draw_menu(menu_p1_Onre, screen)
+    # p2
+    Choose.draw_menu(menu_p2_fighter, screen)
+    Choose.draw_menu(menu_p2_shinobi, screen)
+    Choose.draw_menu(menu_p2_samurai, screen)
     Choose.draw_menu(menu_p2_gotoku, screen)
-    screen.blit(menu_p2_fighter, menu_p2_fighter_rect)
-    screen.blit(menu_p2_shinobi, menu_p2_shinobi_rect)
-    screen.blit(menu_p1_samurai, menu_p1_samurai_rect)
-    screen.blit(menu_p2_samurai, menu_p2_samurai_rect)
+    Choose.draw_menu(menu_p2_Onre, screen)
 
 
 def draw_background():
@@ -160,7 +158,7 @@ while menu:
         if event.type == pygame.QUIT:
             run = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if menu_surface_rect.collidepoint(pygame.mouse.get_pos()):
+            if start_surface_rect.collidepoint(pygame.mouse.get_pos()):
                 menu = False
                 run = True
             if menu_p1_fighter[3].collidepoint(pygame.mouse.get_pos()):
@@ -171,7 +169,7 @@ while menu:
                 p1_Char = Shinobi
                 Player1_step = Shinobi_step
                 Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
-            if menu_p1_samurai_rect.collidepoint(pygame.mouse.get_pos()):
+            if menu_p1_samurai[3].collidepoint(pygame.mouse.get_pos()):
                 p1_Char = Samurai
                 Player1_step = Samurai_step
                 Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
@@ -179,16 +177,21 @@ while menu:
                 p1_Char = Gotoku
                 Player1_step = Gotoku_step
                 Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
+            if menu_p1_Onre[3].collidepoint(pygame.mouse.get_pos()):
+                p1_Char = Onre
+                Player1_step = Onre_step
+                Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
+
             # player 2
-            if menu_p2_fighter_rect.collidepoint(pygame.mouse.get_pos()):
+            if menu_p2_fighter[3].collidepoint(pygame.mouse.get_pos()):
                 p2_Char = Fighter
                 Player2_step = Fighter_step
                 Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
-            if menu_p2_shinobi_rect.collidepoint(pygame.mouse.get_pos()):
+            if menu_p2_shinobi[3].collidepoint(pygame.mouse.get_pos()):
                 p2_Char = Shinobi
                 Player2_step = Shinobi_step
                 Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
-            if menu_p2_samurai_rect.collidepoint(pygame.mouse.get_pos()):
+            if menu_p2_samurai[3].collidepoint(pygame.mouse.get_pos()):
                 p2_Char = Samurai
                 Player2_step = Samurai_step
                 Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
@@ -196,9 +199,13 @@ while menu:
                 p2_Char = Gotoku
                 Player2_step = Gotoku_step
                 Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
+            if menu_p2_Onre[3].collidepoint(pygame.mouse.get_pos()):
+                p2_Char = Onre
+                Player2_step = Onre_step
+                Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
 
     draw_menu()
-    screen.blit(menu_surface, menu_surface_rect)
+    screen.blit(start_surface, start_surface_rect)
     pygame.display.update()
 
 Player1_spawn = Player(1, 200, 1120, False, Player1_data, Player1_spritesheet,
