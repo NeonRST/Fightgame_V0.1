@@ -27,6 +27,7 @@ class Player():
         self.hit = False
         self.health = 200
         self.alive = True
+        self.menu = False
 
     def load_images(self, sprite_sheet, animation_steps):
         # extract images from sprite sheet
@@ -235,3 +236,5 @@ class Player():
         img = pygame.transform.flip(self.image, self.flip, False)
         surface.blit(img, (self.rect.x - (self.offset[0] * self.image_scale),
                            self.rect.y - (self.offset[1] * self.image_scale)))
+
+
