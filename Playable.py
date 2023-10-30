@@ -51,7 +51,6 @@ class Player():
 
         # get key press
         key = pygame.key.get_pressed()
-
         # can only perform other actions if not currently attacking
         if self.attacking == False and self.alive == True and not round_over:
             # check player 1 controls
@@ -216,7 +215,7 @@ class Player():
                     dmg = 0.5
                 else:
                     if self.attack_val == 0:
-                        dmg = 40
+                        dmg = 200
                     if self.attack_val == 1:
                         dmg = 5
                     if self.attack_val == 2:
