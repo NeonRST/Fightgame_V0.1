@@ -1,8 +1,9 @@
 import pygame
-
+from attack_style import Move_set
 
 class Player():
-    def __init__(self, player, x, y, flip, data, sprite_sheet, animation_steps, sound):
+    def __init__(self, player, x, y, flip, data, sprite_sheet,
+                 animation_steps, sound, attack_style=0):
         self.player = player
         self.size = data[0]
         self.image_scale = data[1]
@@ -24,6 +25,7 @@ class Player():
         self.attack_cooldown = 0
         self.attack_val = 0
         self.attack_sound = sound
+        self.attack_style = attack_style
         self.hit = False
         self.health = 200
         self.alive = True
@@ -69,15 +71,16 @@ class Player():
                 if key[pygame.K_s] and not self.running:
                     self.blocking = True
                 # attack
-                if key[pygame.K_j] or key[pygame.K_k] or key[pygame.K_l]:
+                if key[pygame.K_j] or key[pygame.K_k] or key[pygame.K_l] or \
+                        key[pygame.K_z] or key[pygame.K_x] or key[pygame.K_c]:
                     # determine which attack type was used
-                    if key[pygame.K_j]:
+                    if key[pygame.K_j] or key[pygame.K_z]:
                         self.attack_type = 1
                         self.attack_val = 0
-                    if key[pygame.K_k]:
+                    if key[pygame.K_k] or key[pygame.K_x]:
                         self.attack_type = 2
                         self.attack_val = 1
-                    if key[pygame.K_l]:
+                    if key[pygame.K_l] or key[pygame.K_c]:
                         self.attack_type = 3
                         self.attack_val = 2
                     self.attack(target)
@@ -98,15 +101,17 @@ class Player():
                 if key[pygame.K_DOWN] and not self.running:
                     self.blocking = True
                 # attack
-                if key[pygame.K_KP1] or key[pygame.K_KP2] or key[pygame.K_KP3]:
+                if key[pygame.K_KP1] or key[pygame.K_KP2] or key[
+                    pygame.K_KP3] or key[pygame.K_i] or key[pygame.K_o] or \
+                        key[pygame.K_p]:
                     # determine which attack type was used
-                    if key[pygame.K_KP1]:
+                    if key[pygame.K_KP1] or key[pygame.K_i] :
                         self.attack_type = 1
                         self.attack_val = 0
-                    if key[pygame.K_KP2]:
+                    if key[pygame.K_KP2] or key[pygame.K_o]:
                         self.attack_type = 2
                         self.attack_val = 1
-                    if key[pygame.K_KP3]:
+                    if key[pygame.K_KP3] or key[pygame.K_p]:
                         self.attack_type = 3
                         self.attack_val = 2
                     self.attack(target)
@@ -180,23 +185,105 @@ class Player():
                 self.frame_index = len(self.animation_list[self.action]) - 1
             else:
                 self.frame_index = 0
-                # check if an attack was executed
-                if self.action == 4:
-                    self.attacking = False
-                    self.attack_cooldown = 10
-                if self.action == 5:
-                    self.attacking = False
-                    self.attack_cooldown = 1
-                if self.action == 6:
-                    self.attacking = False
-                    self.attack_cooldown = 30
+                # cooldown = Move_set(self.attack_style, self.attack_val,
+                #                    self.action)
+                # self.attack_cooldown, self.attacking = Move_set.attack_cooldown(cooldown)
+                # if self.action == 8:
+                #     self.hit = False
+                #     # is stopped
+                #     self.attacking = False
+                #     self.attack_cooldown = 20
+                # Fighter
+                if self.attack_style == 0:
+                    if self.action == 4:
+                        self.attacking = False
+                        self.attack_cooldown = 15
+                    if self.action == 5:
+                        self.attacking = False
+                        self.attack_cooldown = 10
+                    if self.action == 6:
+                        self.attacking = False
+                        self.attack_cooldown = 20
                 # check if damage was taken
-                if self.action == 8:
-                    self.hit = False
+                    if self.action == 8:
+                        self.hit = False
                 # if the player was in the middle of an attack, then the attack
-                    # is stopped
-                    self.attacking = False
-                    self.attack_cooldown = 20
+                        # is stopped
+                        self.attacking = False
+                        self.attack_cooldown = 20
+
+                # shinobi
+                elif self.attack_style == 1:
+                    if self.action == 4:
+                        self.attacking = False
+                        self.attack_cooldown = 20
+                    if self.action == 5:
+                        self.attacking = False
+                        self.attack_cooldown = 5
+                    if self.action == 6:
+                        self.attacking = False
+                        self.attack_cooldown = 60
+                    # check if damage was taken
+                    if self.action == 8:
+                        self.hit = False
+                        # if the player was in the middle of an attack, then the attack
+                        # is stopped
+                        self.attacking = False
+                        self.attack_cooldown = 1
+                # samurai
+                elif self.attack_style == 2:
+                    if self.action == 4:
+                        self.attacking = False
+                        self.attack_cooldown = 0
+                    if self.action == 5:
+                        self.attacking = False
+                        self.attack_cooldown = 0
+                    if self.action == 6:
+                        self.attacking = False
+                        self.attack_cooldown = 0
+                    # check if damage was taken
+                    if self.action == 8:
+                        self.hit = False
+                        # if the player was in the middle of an attack, then the attack
+                        # is stopped
+                        self.attacking = False
+                        self.attack_cooldown = 20
+                # gotoku
+                elif self.attack_style == 3:
+                    if self.action == 4:
+                        self.attacking = False
+                        self.attack_cooldown = 20
+                    if self.action == 5:
+                        self.attacking = False
+                        self.attack_cooldown = 0
+                    if self.action == 6:
+                        self.attacking = False
+                        self.attack_cooldown = 50
+                    # check if damage was taken
+                    if self.action == 8:
+                        self.hit = False
+                        # if the player was in the middle of an attack, then the attack
+                        # is stopped
+                        self.attacking = False
+                        self.attack_cooldown = 1
+                # onre
+                elif self.attack_style == 4:
+                    if self.action == 4:
+                        self.attacking = False
+                        self.attack_cooldown = 30
+                    if self.action == 5:
+                        self.attacking = False
+                        self.attack_cooldown = 15
+                    if self.action == 6:
+                        self.attacking = False
+                        self.attack_cooldown = 200
+                    # check if damage was taken
+                    if self.action == 8:
+                        self.hit = False
+                        # if the player was in the middle of an attack, then the attack
+                        # is stopped
+                        self.attacking = False
+                        self.attack_cooldown = 20
 
     def attack(self, target):
 
@@ -214,12 +301,9 @@ class Player():
                 if target.blocking and self.attack_val != 2:
                     dmg = 0.5
                 else:
-                    if self.attack_val == 0:
-                        dmg = 200
-                    if self.attack_val == 1:
-                        dmg = 5
-                    if self.attack_val == 2:
-                        dmg = 15
+                    all_dmg = Move_set(self.attack_style, self.attack_val,
+                                       self.action)
+                    dmg = Move_set.attack_dmg(all_dmg)
                     target.hit = True
                 target.health -= dmg
 
