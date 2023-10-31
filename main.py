@@ -16,7 +16,7 @@ SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 1080
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Anime Battle")
+pygame.display.set_caption("Battle")
 
 # define colors
 black = "Black"
@@ -72,36 +72,40 @@ Player2_attack = pygame.mixer.Sound("graphics/audio/woosh.mp3")
 Player2_attack.set_volume(0.9)
 
 # menu
-menu_image = pygame.image.load("graphics/images/menu/menu.jpg").convert_alpha()
+menu_image = pygame.image.load("graphics/images/background/shrek.jpg").convert_alpha()
 start_font = pygame.font.Font("graphics/fonts/Bulletproof.ttf", 100)
 start_surface = start_font.render("start", True, "Black")
-start_surface_rect = start_surface.get_rect(midbottom=(870, 300))
-menu_choose1 = Choose("graphics/fonts/Bulletproof.ttf", "Player1", 600, 450, 50, "red")
-menu_choose2 = Choose("graphics/fonts/Bulletproof.ttf", "Player2", 1100, 450, 50, "red")
+start_surface_rect = start_surface.get_rect(midbottom=(970, 300))
+menu_choose1 = Choose("graphics/fonts/Bulletproof.ttf", "Player1", 700, 450,
+                      50, "red")
+menu_choose2 = Choose("graphics/fonts/Bulletproof.ttf", "Player2", 1200,
+                      450, 50, "red")
 
 # load background image
-background_image = pygame.image.load("graphics/images/background/shrek.jpg").convert_alpha()
+background_image = pygame.image.load(
+    "graphics/images/background/forrest.png").convert_alpha()
 # character choose
-menu_p1_fighter = Choose("graphics/fonts/Bulletproof.ttf", "Fighter", 600,
+menu_p1_fighter = Choose("graphics/fonts/Bulletproof.ttf", "Fighter", 700,
                          500, 30)
-menu_p1_shinobi = Choose("graphics/fonts/Bulletproof.ttf", "Shinobi", 600,
-                         550, 30)
-menu_p1_samurai = Choose("graphics/fonts/Bulletproof.ttf", "Samurai", 600,
+menu_p1_shinobi = Choose("graphics/fonts/Bulletproof.ttf", "Shinobi", 700,
+                         550, 30, )
+menu_p1_samurai = Choose("graphics/fonts/Bulletproof.ttf", "Samurai", 700,
                          600, 30)
-menu_p1_gotoku = Choose("graphics/fonts/Bulletproof.ttf", "Gotoku", 600,
+menu_p1_gotoku = Choose("graphics/fonts/Bulletproof.ttf", "Gotoku", 700,
                         650, 30)
-menu_p1_Onre = Choose("graphics/fonts/Bulletproof.ttf", "Onre", 600, 700,
+menu_p1_Onre = Choose("graphics/fonts/Bulletproof.ttf", "Onre", 700, 700,
                       30)
-menu_p2_fighter = Choose("graphics/fonts/Bulletproof.ttf", "Fighter", 1100,
+menu_p2_fighter = Choose("graphics/fonts/Bulletproof.ttf", "Fighter", 1200,
                          500, 30)
-menu_p2_shinobi = Choose("graphics/fonts/Bulletproof.ttf", "Shinobi", 1100,
+menu_p2_shinobi = Choose("graphics/fonts/Bulletproof.ttf", "Shinobi", 1200,
                          550, 30)
-menu_p2_samurai = Choose("graphics/fonts/Bulletproof.ttf", "Samurai", 1100,
+menu_p2_samurai = Choose("graphics/fonts/Bulletproof.ttf", "Samurai", 1200,
                          600, 30)
-menu_p2_gotoku = Choose("graphics/fonts/Bulletproof.ttf", "Gotoku", 1100,
+menu_p2_gotoku = Choose("graphics/fonts/Bulletproof.ttf", "Gotoku", 1200,
                         650, 30)
-menu_p2_Onre = Choose("graphics/fonts/Bulletproof.ttf", "Onre", 1100, 700,
+menu_p2_Onre = Choose("graphics/fonts/Bulletproof.ttf", "Onre", 1200, 700,
                       30)
+selected = False
 
 # load sprite sheets
 Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
@@ -180,26 +184,41 @@ while menu:
                 Player1_step = Fighter_step
                 Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
                 attack_style_p1 = 0
+                menu_p1_fighter = Choose("graphics/fonts/Bulletproof.ttf",
+                                         "Fighter", 700,
+                                         500, 30, white)
             if menu_p1_shinobi[3].collidepoint(pygame.mouse.get_pos()):
                 p1_Char = Shinobi
                 Player1_step = Shinobi_step
                 Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
                 attack_style_p1 = 1
+                menu_p1_shinobi = Choose("graphics/fonts/Bulletproof.ttf",
+                                         "Shinobi", 700,
+                                         550, 30, white)
             if menu_p1_samurai[3].collidepoint(pygame.mouse.get_pos()):
                 p1_Char = Samurai
                 Player1_step = Samurai_step
                 Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
                 attack_style_p1 = 2
+                menu_p1_samurai = Choose("graphics/fonts/Bulletproof.ttf",
+                                         "Samurai", 700,
+                                         600, 30, white)
             if menu_p1_gotoku[3].collidepoint(pygame.mouse.get_pos()):
                 p1_Char = Gotoku
                 Player1_step = Gotoku_step
                 Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
                 attack_style_p1 = 3
+                menu_p1_gotoku = Choose("graphics/fonts/Bulletproof.ttf",
+                                        "Gotoku", 700,
+                                        650, 30, white)
             if menu_p1_Onre[3].collidepoint(pygame.mouse.get_pos()):
                 p1_Char = Onre
                 Player1_step = Onre_step
                 Player1_spritesheet = pygame.image.load(p1_Char).convert_alpha()
                 attack_style_p1 = 4
+                menu_p1_Onre = Choose("graphics/fonts/Bulletproof.ttf", "Onre",
+                                      700, 700,
+                                      30, white)
 
             # player 2
             if menu_p2_fighter[3].collidepoint(pygame.mouse.get_pos()):
@@ -207,26 +226,41 @@ while menu:
                 Player2_step = Fighter_step
                 Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
                 attack_style_p2 = 0
+                menu_p2_fighter = Choose("graphics/fonts/Bulletproof.ttf",
+                                         "Fighter", 1200,
+                                         500, 30, white)
             if menu_p2_shinobi[3].collidepoint(pygame.mouse.get_pos()):
                 p2_Char = Shinobi
                 Player2_step = Shinobi_step
                 Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
                 attack_style_p2 = 1
+                menu_p2_shinobi = Choose("graphics/fonts/Bulletproof.ttf",
+                                         "Shinobi", 1200,
+                                         550, 30, white)
             if menu_p2_samurai[3].collidepoint(pygame.mouse.get_pos()):
                 p2_Char = Samurai
                 Player2_step = Samurai_step
                 Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
                 attack_style_p2 = 2
+                menu_p2_samurai = Choose("graphics/fonts/Bulletproof.ttf",
+                                         "Samurai", 1200,
+                                         600, 30, white)
             if menu_p2_gotoku[3].collidepoint(pygame.mouse.get_pos()):
                 p2_Char = Gotoku
                 Player2_step = Gotoku_step
                 Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
                 attack_style_p2 = 3
+                menu_p2_gotoku = Choose("graphics/fonts/Bulletproof.ttf",
+                                        "Gotoku", 1200,
+                                        650, 30, white)
             if menu_p2_Onre[3].collidepoint(pygame.mouse.get_pos()):
                 p2_Char = Onre
                 Player2_step = Onre_step
                 Player2_spritesheet = pygame.image.load(p2_Char).convert_alpha()
                 attack_style_p2 = 4
+                menu_p2_Onre = Choose("graphics/fonts/Bulletproof.ttf", "Onre",
+                                      1200, 700,
+                                      30, white)
 
     draw_menu()
     screen.blit(start_surface, start_surface_rect)
@@ -253,8 +287,8 @@ while run:
     # show player stats
     draw_health_bar(Player1_spawn.health, 20, 20)
     draw_health_bar(Player2_spawn.health, 1300, 20)
-    draw_text("Player1: " + str(score[0]), score_font, black, 20, 60)
-    draw_text("Player2: " + str(score[1]), score_font, black, 1300, 60)
+    draw_text("Player1: " + str(score[0]), score_font, white, 20, 60)
+    draw_text("Player2: " + str(score[1]), score_font, white, 1300, 60)
     # update countdown
     if intro_count <= 0:
         # move fighters

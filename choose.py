@@ -2,7 +2,7 @@ import pygame
 
 
 class Choose:
-    def __init__(self, font, text, x, y, size=30, color="red"):
+    def __init__(self, font, text, x, y, size=30, color="black"):
         self.text = text
         self.font = pygame.font.Font(f"{font}", size)
         self.surface = self.font.render(f"{text}", True, color)

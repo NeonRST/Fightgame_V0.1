@@ -197,20 +197,20 @@ class Player():
                 if self.attack_style == 0:
                     if self.action == 4:
                         self.attacking = False
-                        self.attack_cooldown = 15
+                        self.attack_cooldown = 25
                     if self.action == 5:
                         self.attacking = False
-                        self.attack_cooldown = 10
+                        self.attack_cooldown = 2
                     if self.action == 6:
                         self.attacking = False
-                        self.attack_cooldown = 20
+                        self.attack_cooldown = 30
                 # check if damage was taken
                     if self.action == 8:
                         self.hit = False
                 # if the player was in the middle of an attack, then the attack
                         # is stopped
                         self.attacking = False
-                        self.attack_cooldown = 20
+                        self.attack_cooldown = 15
 
                 # shinobi
                 elif self.attack_style == 1:
@@ -229,54 +229,54 @@ class Player():
                         # if the player was in the middle of an attack, then the attack
                         # is stopped
                         self.attacking = False
-                        self.attack_cooldown = 1
+                        self.attack_cooldown = 12
                 # samurai
                 elif self.attack_style == 2:
                     if self.action == 4:
                         self.attacking = False
-                        self.attack_cooldown = 0
+                        self.attack_cooldown = 13
                     if self.action == 5:
                         self.attacking = False
-                        self.attack_cooldown = 0
+                        self.attack_cooldown = 3
                     if self.action == 6:
                         self.attacking = False
-                        self.attack_cooldown = 0
+                        self.attack_cooldown = 20
                     # check if damage was taken
                     if self.action == 8:
                         self.hit = False
                         # if the player was in the middle of an attack, then the attack
                         # is stopped
                         self.attacking = False
-                        self.attack_cooldown = 20
+                        self.attack_cooldown = 18
                 # gotoku
                 elif self.attack_style == 3:
                     if self.action == 4:
                         self.attacking = False
-                        self.attack_cooldown = 20
+                        self.attack_cooldown = 12
                     if self.action == 5:
                         self.attacking = False
-                        self.attack_cooldown = 0
+                        self.attack_cooldown = 18
                     if self.action == 6:
                         self.attacking = False
-                        self.attack_cooldown = 50
+                        self.attack_cooldown = 70
                     # check if damage was taken
                     if self.action == 8:
                         self.hit = False
                         # if the player was in the middle of an attack, then the attack
                         # is stopped
                         self.attacking = False
-                        self.attack_cooldown = 1
+                        self.attack_cooldown = 10
                 # onre
                 elif self.attack_style == 4:
                     if self.action == 4:
                         self.attacking = False
-                        self.attack_cooldown = 30
+                        self.attack_cooldown = 25
                     if self.action == 5:
                         self.attacking = False
-                        self.attack_cooldown = 15
+                        self.attack_cooldown = 10
                     if self.action == 6:
                         self.attacking = False
-                        self.attack_cooldown = 200
+                        self.attack_cooldown = 100
                     # check if damage was taken
                     if self.action == 8:
                         self.hit = False
@@ -297,7 +297,6 @@ class Player():
                                          self.rect.y, 2 * self.rect.width,
                                          self.rect.height)
             if attacking_rect.colliderect(target.rect):
-                dmg = 0
                 if target.blocking and self.attack_val != 2:
                     dmg = 0.5
                 else:
