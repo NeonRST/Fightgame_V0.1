@@ -1,6 +1,7 @@
 import pygame
 from attack_style import Move_set
 
+
 class Player():
     def __init__(self, player, x, y, flip, data, sprite_sheet,
                  animation_steps, sound, attack_style=0):
@@ -146,30 +147,7 @@ class Player():
 
     # handle animation updates
     def update(self):
-        # check what action the player is performing
-        if self.health <= 0:
-            self.health = 0
-            self.alive = False
-            self.update_action(9)  # 9:death
-        elif self.hit == True:
-            self.update_action(8)  # 8:hit
-        elif self.blocking == True:
-            self.update_action(7)  # 7:block
-        elif self.attacking == True:
-            if self.attack_type == 1:
-                self.update_action(4)  # 4:attack1
-            elif self.attack_type == 2:
-                self.update_action(5)  # 5:attack2
-            elif self.attack_type == 3:
-                self.update_action(6)  # 6:attack2
-        elif self.jump == True:
-            self.update_action(3)  # 3:jump
-        elif self.walking == True:
-            self.update_action(1)  # 1:walk
-        elif self.running == True:
-            self.update_action(2) # 2:run
-        else:
-            self.update_action(0)  # 0:idle
+
 
         animation_cooldown = 50
         # update image
@@ -185,15 +163,6 @@ class Player():
                 self.frame_index = len(self.animation_list[self.action]) - 1
             else:
                 self.frame_index = 0
-                # cooldown = Move_set(self.attack_style, self.attack_val,
-                #                    self.action)
-                # self.attack_cooldown, self.attacking = Move_set.attack_cooldown(cooldown)
-                # if self.action == 8:
-                #     self.hit = False
-                #     # is stopped
-                #     self.attacking = False
-                #     self.attack_cooldown = 20
-                # Fighter
                 if self.attack_style == 0:
                     if self.action == 4:
                         self.attacking = False
@@ -204,10 +173,9 @@ class Player():
                     if self.action == 6:
                         self.attacking = False
                         self.attack_cooldown = 30
-                # check if damage was taken
+                    # check if damage was taken
                     if self.action == 8:
                         self.hit = False
-                # if the player was in the middle of an attack, then the attack
                         # is stopped
                         self.attacking = False
                         self.attack_cooldown = 15
@@ -219,10 +187,10 @@ class Player():
                         self.attack_cooldown = 20
                     if self.action == 5:
                         self.attacking = False
-                        self.attack_cooldown = 5
+                        self.attack_cooldown = 10
                     if self.action == 6:
                         self.attacking = False
-                        self.attack_cooldown = 60
+                        self.attack_cooldown = 70
                     # check if damage was taken
                     if self.action == 8:
                         self.hit = False
@@ -250,6 +218,7 @@ class Player():
                         self.attack_cooldown = 18
                 # gotoku
                 elif self.attack_style == 3:
+
                     if self.action == 4:
                         self.attacking = False
                         self.attack_cooldown = 12
@@ -284,6 +253,34 @@ class Player():
                         # is stopped
                         self.attacking = False
                         self.attack_cooldown = 20
+                # atk_cd = Move_set(self.attack_style, self.attack_val,
+                #                   self.action, self.attack_cooldown, self.hit)
+                # Move_set.attack_cd(atk_cd)
+
+        # check what action the player is performing
+        if self.health <= 0:
+            self.health = 0
+            self.alive = False
+            self.update_action(9)  # 9:death
+        elif self.hit == True:
+            self.update_action(8)  # 8:hit
+        elif self.blocking == True:
+            self.update_action(7)  # 7:block
+        elif self.attacking == True:
+            if self.attack_type == 1:
+                self.update_action(4)  # 4:attack1
+            elif self.attack_type == 2:
+                self.update_action(5)  # 5:attack2
+            elif self.attack_type == 3:
+                self.update_action(6)  # 6:attack2
+        elif self.jump == True:
+            self.update_action(3)  # 3:jump
+        elif self.walking == True:
+            self.update_action(1)  # 1:walk
+        elif self.running == True:
+            self.update_action(2) # 2:run
+        else:
+            self.update_action(0)  # 0:idle
 
     def attack(self, target):
 
@@ -301,7 +298,8 @@ class Player():
                     dmg = 0.5
                 else:
                     all_dmg = Move_set(self.attack_style, self.attack_val,
-                                       self.action)
+                                       self.action, self.attack_cooldown,
+                                       self.hit)
                     dmg = Move_set.attack_dmg(all_dmg)
                     target.hit = True
                 target.health -= dmg
