@@ -147,8 +147,6 @@ class Player():
 
     # handle animation updates
     def update(self):
-
-
         animation_cooldown = 50
         # update image
         self.image = self.animation_list[self.action][self.frame_index]
