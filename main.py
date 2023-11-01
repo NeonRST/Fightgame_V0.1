@@ -120,18 +120,17 @@ menu_p2_Onre = Choose("graphics/fonts/Bulletproof.ttf", "Onre", 1200, 700,
 selected = False
 
 # map
-menu_map_choose = Choose("graphics/fonts/Bulletproof.ttf", "Map", 950,
-                      750, 50, "red")
+menu_map_choose = Choose("graphics/fonts/Bulletproof.ttf", "Map", 950,750, 50, "red")
 
 map1_menu = Choose("graphics/fonts/Bulletproof.ttf", "Shrek", 950,
                          800, 30)
 map2_menu = Choose("graphics/fonts/Bulletproof.ttf", "Singapore", 950,
                          850, 30)
-map3_menu = Choose("graphics/fonts/Bulletproof.ttf", "Merlion", 950,
+map3_menu = Choose("graphics/fonts/Bulletproof.ttf", "Forrest", 950,
                          900, 30)
-map4_menu = Choose("graphics/fonts/Bulletproof.ttf", "Forrest", 950,
+map4_menu = Choose("graphics/fonts/Bulletproof.ttf", "Lost Island", 950,
                          950, 30)
-map5_menu = Choose("graphics/fonts/Bulletproof.ttf", "Hidden", 950,
+map5_menu = Choose("graphics/fonts/Bulletproof.ttf", "Hanamura", 950,
                          1000, 30)
 
 
@@ -155,7 +154,7 @@ map1_selected = False
 map2_selected = False
 map3_selected = False
 map4_selected = False
-mpa5_Selected = False
+map5_selected = False
 
 # load background image
 background_image = pygame.image.load(bg_image_load).convert_alpha()
@@ -187,7 +186,7 @@ def draw_menu():
     Choose.draw_menu(map4_menu, screen)
     Choose.draw_menu(map5_menu, screen)
 
-
+# draw background
 def draw_background():
     scaled_bg = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.blit(scaled_bg, (0, 0))
@@ -422,8 +421,7 @@ while menu:
                         background_image = "graphics/images/background/shrek.jpg"
                         map1_menu = Choose("graphics/fonts/Bulletproof.ttf",
                                            "Shrek", 950, 800, 30, white)
-                        bg_image_load = pygame.image.load(
-                            background_image).convert_alpha()
+                        background_image = pygame.image.load(background_image).convert_alpha()
                         render_map_selected = True
                         map1_selected = True
                     elif map1_selected:
@@ -432,15 +430,13 @@ while menu:
                                            800, 30, black)
                         map1_selected = False
                         render_map_selected = False
-
             if map2_menu[3].collidepoint(pygame.mouse.get_pos()):
-                if render_map_selected == False or map2_selected:
+                if not render_map_selected or map2_selected:
                     if not map2_selected:
                         background_image = "graphics/images/background/merlion.jpg"
                         map2_menu = Choose("graphics/fonts/Bulletproof.ttf",
                                            "Singapore", 950, 850, 30, white)
-                        bg_image_load = pygame.image.load(
-                            background_image).convert_alpha()
+                        background_image = pygame.image.load(background_image).convert_alpha()
                         render_map_selected = True
                         map2_selected = True
                     elif map2_selected:
@@ -449,6 +445,54 @@ while menu:
                                            850, 30, black)
                         map2_selected = False
                         render_map_selected = False
+            if map3_menu[3].collidepoint(pygame.mouse.get_pos()):
+                if not render_map_selected or map3_selected:
+                    if not map3_selected:
+                        background_image = "graphics/images/background/forrest.jpg"
+                        map3_menu = Choose("graphics/fonts/Bulletproof.ttf",
+                                           "Forrest", 950, 900, 30, white)
+                        background_image = pygame.image.load(background_image).convert_alpha()
+                        render_map_selected = True
+                        map3_selected = True
+                    elif map3_selected:
+                        map3_menu = Choose("graphics/fonts/Bulletproof.ttf",
+                                           "Forrest", 950,
+                                           900, 30, black)
+                        map3_selected = False
+                        render_map_selected = False
+            if map4_menu[3].collidepoint(pygame.mouse.get_pos()):
+                if not render_map_selected or map4_selected:
+                    if not map4_selected:
+                        background_image = "graphics/images/background/lost_island.jpg"
+                        map4_menu = Choose("graphics/fonts/Bulletproof.ttf",
+                                           "Lost Island", 950, 950, 30, white)
+                        background_image = pygame.image.load(background_image).convert_alpha()
+                        render_map_selected = True
+                        map4_selected = True
+                    elif map4_selected:
+                        map4_menu = Choose("graphics/fonts/Bulletproof.ttf",
+                                           "Lost Island", 950,
+                                           950, 30, black)
+                        map4_selected = False
+                        render_map_selected = False
+
+            if map5_menu[3].collidepoint(pygame.mouse.get_pos()):
+                if not render_map_selected or map5_selected:
+                    if not map5_selected:
+                        background_image = "graphics/images/background/hanamura.jpg"
+                        map5_menu = Choose("graphics/fonts/Bulletproof.ttf",
+                                           "Hanamura", 950, 1000, 30, white)
+                        background_image = pygame.image.load(background_image).convert_alpha()
+                        render_map_selected = True
+                        map5_selected = True
+                    elif map5_selected:
+                        map5_menu = Choose("graphics/fonts/Bulletproof.ttf",
+                                           "Hanamura", 950,
+                                           1000, 30, black)
+                        map5_selected = False
+                        render_map_selected = False
+
+
 
 
 
@@ -460,6 +504,10 @@ Player1_spawn = Player(1, 200, 1120, False, Player1_data, Player1_spritesheet,
                        Player1_step, Player1_attack, attack_style_p1)
 Player2_spawn = Player(2, 1800, 1120, True, Player2_data, Player2_spritesheet,
                        Player2_step, Player2_attack, attack_style_p2)
+
+
+
+
 while run:
     clock.tick(FPS)
     # event
