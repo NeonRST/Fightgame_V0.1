@@ -144,6 +144,8 @@ Victory_surface = Victory_font.render("Fatality", True, "Red")
 Victory_surface_rect = Victory_surface.get_rect(midbottom=(960, 550))
 Exit_surface = Exit_font.render("Exit", True, "Black")
 Exit_surface_rect = Exit_surface.get_rect(midbottom=(960, 80))
+Exit_to_menu_surface = Exit_font.render("Exit", True, "White")
+Exit_to_menu_surface_rect = Exit_to_menu_surface.get_rect(midbottom=(960, 80))
 bg_image_load = "graphics/images/background/forrest.png"
 render_map_selected = False
 map1_selected = False
@@ -189,6 +191,7 @@ def draw_background():
     scaled_bg = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.blit(scaled_bg, (0, 0))
 
+
 # function for drawing text
 def draw_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
@@ -212,6 +215,7 @@ menu = True
 run = False
 while menu:
     clock.tick(FPS)
+    screen.blit(Exit_surface, Exit_surface_rect)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -485,16 +489,19 @@ while menu:
                                            700, 30, black)
                         map5_selected = False
                         render_map_selected = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if Exit_to_menu_surface_rect.collidepoint(pygame.mouse.get_pos()):
+                    menu = False
 
     draw_menu()
     screen.blit(start_surface, start_surface_rect)
+    screen.blit(Exit_surface, Exit_surface_rect)
     pygame.display.update()
 
 Player1_spawn = Player(1, 200, 1120, False, Player1_data, Player1_spritesheet,
                        Player1_step, Player1_attack, attack_style_p1)
 Player2_spawn = Player(2, 1800, 1120, True, Player2_data, Player2_spritesheet,
                        Player2_step, Player2_attack, attack_style_p2)
-
 
 while run:
     clock.tick(FPS)
@@ -503,13 +510,14 @@ while run:
         if event.type == pygame.QUIT:
             run = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if Exit_surface_rect.collidepoint(pygame.mouse.get_pos()):
+            if Exit_to_menu_surface_rect.collidepoint(pygame.mouse.get_pos()):
+                menu = True
                 run = False
 
     # draw background
     draw_background()
     # Exit
-    screen.blit(Exit_surface, Exit_surface_rect)
+    screen.blit(Exit_to_menu_surface, Exit_to_menu_surface_rect)
     # show player stats
     draw_health_bar(Player1_spawn.health, 20, 20)
     draw_health_bar(Player2_spawn.health, 1300, 20)
